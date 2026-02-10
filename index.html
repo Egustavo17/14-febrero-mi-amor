@@ -97,7 +97,7 @@
   <div id="hearts"></div>
 
   <div class="container">
-    <h1>Mi amor precioso 💖</h1>
+    <h1>Mi niña hermosa 💖</h1>
     <p class="pregunta">¿Quieres salir conmigo este 14 de febrero? 🥰🌹</p>
     <div id="countdown"></div>
     <div class="buttons">
@@ -116,7 +116,7 @@
     function createHeart() {
       const heart = document.createElement('div');
       heart.className = 'heart';
-      heart.innerHTML = Math.random() > 0.6 ? '❤️' : (Math.random() > 0.5 ? '💙' : '💜');
+      heart.innerHTML = Math.random() > 0.6 ? '❤️';
       heart.style.left = Math.random() * 100 + 'vw';
       heart.style.animationDuration = (Math.random() * 4 + 5) + 's';
       heart.style.fontSize = (2.5 + Math.random() * 1.5) + 'em';
@@ -150,7 +150,7 @@
     const mensaje = document.getElementById('mensaje');
 
     siBtn.addEventListener('click', () => {
-      mensaje.innerHTML = '¡SÍIIII! 🥳💖 Te amo con todo mi corazón ❤️ Prepárate para el mejor día';
+      mensaje.innerHTML = '¡Siii! 🥳💖 Te amo con todo mi corazón ❤️ Gracias mi amor';
       mensaje.style.opacity = '1';
 
       // Confetti
@@ -200,7 +200,7 @@
       noBtn.style.position = 'absolute';
       noBtn.style.left = Math.random() * 85 + 'vw';
       noBtn.style.top = Math.random() * 85 + 'vh';
-      const frases = ['¿Segura? 😭', 'Nooooo porfi 🥺', 'Piensa bien... ❤️', 'Uy casi! 😏'];
+      const frases = ['¿Segura? 😭', 'Noooo por favor 🥺', 'Piensa bien... ❤️', 'Uy casi! 😏', 'Pero por quee?? 😭😭😭', 'Muy segura de que no quieres?? 🥺'];
       noBtn.innerText = frases[Math.floor(Math.random() * frases.length)];
     });
   </script>
