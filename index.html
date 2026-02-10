@@ -33,16 +33,31 @@
     #si:hover { transform: scale(1.15) rotate(5deg); }
     #no { background: #e74c3c; color: white; }
     #no:hover { transform: translateY(-8px); }
-    #mensaje { margin-top: 35px; font-size: 1.8em; font-weight: bold; opacity: 0; transition: opacity 1s; }
+    #mensaje {
+      margin-top: 35px;
+      font-size: 1.8em;
+      font-weight: bold;
+      opacity: 0;
+      transition: opacity 1s;
+    }
     #countdown { font-size: 1.4em; margin: 20px 0; color: #d63031; font-weight: bold; }
     .heart {
-      position: absolute; font-size: 2.2em; color: #e74c3c;
-      pointer-events: none; animation: float 9s linear infinite; opacity: 0.75;
+      position: absolute;
+      font-size: 2.2em;
+      color: #e74c3c;
+      pointer-events: none;
+      animation: float 9s linear infinite;
+      opacity: 0.75;
     }
-    @keyframes float { 0% { transform: translateY(100vh) rotate(0deg); } 100% { transform: translateY(-30vh) rotate(720deg); opacity: 0; } }
+    @keyframes float {
+      0% { transform: translateY(100vh) rotate(0deg); }
+      100% { transform: translateY(-30vh) rotate(720deg); opacity: 0; }
+    }
   </style>
   <!-- EmailJS -->
   <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+  <!-- canvas-confetti desde CDN estable -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
 </head>
 <body>
   <div id="hearts"></div>
@@ -61,7 +76,7 @@
   <script>
     emailjs.init("QkUzDmNYXE7ZUyLO2");
 
-    // Corazones flotantes (funcionan sin librería externa)
+    // Corazones flotantes
     function createHeart() {
       const heart = document.createElement('div');
       heart.className = 'heart';
@@ -99,14 +114,35 @@
       mensaje.innerHTML = '¡SÍIIII! 🥳💖 Te amo con todo mi corazón ❤️ Prepárate para el mejor día';
       mensaje.style.opacity = '1';
 
-      // Envío automático del email
-      emailjs.send('service_0ap3wg7', 'template_hw2qaz6', {fecha: new Date().toLocaleString('es-ES')})
-        .then(() => {
-          console.log('¡Email enviado! Revisa tu correo.');
-        })
-        .catch(err => {
-          console.error('Error:', err);
+      // Confetti (versión browser)
+      const duration = 5 * 1000;
+      const animationEnd = Date.now() + duration;
+
+      (function frame() {
+        confetti({
+          particleCount: 8,
+          angle: 60,
+          spread: 55,
+          origin: { x: 0 }
         });
+        confetti({
+          particleCount: 8,
+          angle: 120,
+          spread: 55,
+          origin: { x: 1 }
+        });
+
+        if (Date.now() < animationEnd) {
+          requestAnimationFrame(frame);
+        }
+      }());
+
+      // Envío del email
+      emailjs.send('service_0ap3wg7', 'template_hw2qaz6', {
+        fecha: new Date().toLocaleString('es-ES')
+      })
+        .then(() => console.log('¡Email enviado!'))
+        .catch(err => console.error('Error al enviar:', err));
     });
 
     noBtn.addEventListener('click', () => {
