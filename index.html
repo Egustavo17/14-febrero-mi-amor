@@ -7,7 +7,7 @@
   <style>
     body {
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: linear-gradient(135deg, #4a90e2 0%, #81d4fa 50%, #b3e5fc 100%);
+      background: linear-gradient(135deg, #3a78d8 0%, #6a9cff 40%, #a1c4fd 100%);
       color: #333;
       margin: 0;
       padding: 0;
@@ -83,10 +83,10 @@
       color: #e74c3c;
       pointer-events: none;
       animation: float 8s linear infinite;
-      opacity: 0.9;
+      opacity: 0.92;
     }
     @keyframes float {
-      0% { transform: translateY(120vh) rotate(0deg); opacity: 0.9; }
+      0% { transform: translateY(120vh) rotate(0deg); opacity: 0.92; }
       100% { transform: translateY(-50vh) rotate(1440deg); opacity: 0; }
     }
   </style>
@@ -110,18 +110,22 @@
   <script>
     emailjs.init("QkUzDmNYXE7ZUyLO2");
 
-    // Muchos más corazones (intervalo más corto + más variación)
+    let heartInterval = null;
+
+    // Función para crear corazones
     function createHeart() {
       const heart = document.createElement('div');
       heart.className = 'heart';
       heart.innerHTML = Math.random() > 0.6 ? '❤️' : (Math.random() > 0.5 ? '💙' : '💜');
       heart.style.left = Math.random() * 100 + 'vw';
-      heart.style.animationDuration = (Math.random() * 4 + 5) + 's'; // más rápidos algunos
-      heart.style.fontSize = (2.5 + Math.random() * 1.5) + 'em'; // tamaños variados
+      heart.style.animationDuration = (Math.random() * 4 + 5) + 's';
+      heart.style.fontSize = (2.5 + Math.random() * 1.5) + 'em';
       document.getElementById('hearts').appendChild(heart);
       setTimeout(() => heart.remove(), 12000);
     }
-    setInterval(createHeart, 200);  // antes era 400 → ahora cada 200ms → muchos más
+
+    // Iniciar corazones normales al cargar (cada 150ms)
+    heartInterval = setInterval(createHeart, 150);
 
     // Cuenta regresiva
     const valentinesDay = new Date('2026-02-14T00:00:00').getTime();
@@ -149,7 +153,7 @@
       mensaje.innerHTML = '¡SÍIIII! 🥳💖 Te amo con todo mi corazón ❤️ Prepárate para el mejor día';
       mensaje.style.opacity = '1';
 
-      // Confetti con colores solicitados
+      // Confetti
       const duration = 7000;
       const end = Date.now() + duration;
       const colors = ['#1e90ff', '#2ecc71', '#9b59b6', '#f1c40f', '#e74c3c'];
@@ -173,6 +177,16 @@
           requestAnimationFrame(frame);
         }
       })();
+
+      // Aumentar intensidad de corazones al presionar SÍ (99ms)
+      clearInterval(heartInterval);
+      heartInterval = setInterval(createHeart, 99);
+
+      // Después de 8 segundos, volver a intensidad normal (150ms)
+      setTimeout(() => {
+        clearInterval(heartInterval);
+        heartInterval = setInterval(createHeart, 150);
+      }, 8000);
 
       // Enviar email
       emailjs.send('service_0ap3wg7', 'template_hw2qaz6', {
