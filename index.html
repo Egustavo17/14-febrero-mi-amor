@@ -7,7 +7,7 @@
   <style>
     body {
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: linear-gradient(135deg, #a1c4fd 0%, #c2e9fb 100%);
+      background: linear-gradient(135deg, #6a9cff 0%, #a1c4fd 50%, #c2e9fb 100%);
       color: #333;
       margin: 0;
       padding: 0;
@@ -79,20 +79,20 @@
     }
     .heart {
       position: absolute;
-      font-size: 2.2em;
+      font-size: 2.8em; /* un poco más grandes */
       color: #e74c3c;
       pointer-events: none;
-      animation: float 9s linear infinite;
-      opacity: 0.75;
+      animation: float 10s linear infinite;
+      opacity: 0.85;
     }
     @keyframes float {
-      0% { transform: translateY(100vh) rotate(0deg); }
-      100% { transform: translateY(-30vh) rotate(720deg); opacity: 0; }
+      0% { transform: translateY(120vh) rotate(0deg); opacity: 0.9; }
+      100% { transform: translateY(-40vh) rotate(1080deg); opacity: 0; }
     }
   </style>
   <!-- EmailJS -->
   <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
-  <!-- Confetti (versión browser específica y estable) -->
+  <!-- Confetti -->
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
 </head>
 <body>
@@ -112,19 +112,19 @@
   <script>
     emailjs.init("QkUzDmNYXE7ZUyLO2");
 
-    // Corazones flotantes
+    // Más corazones flotantes (más frecuentes)
     function createHeart() {
       const heart = document.createElement('div');
       heart.className = 'heart';
-      heart.innerHTML = '❤️';
+      heart.innerHTML = Math.random() > 0.5 ? '❤️' : '💙';
       heart.style.left = Math.random() * 100 + 'vw';
-      heart.style.animationDuration = (Math.random() * 6 + 7) + 's';
+      heart.style.animationDuration = (Math.random() * 5 + 6) + 's';
       document.getElementById('hearts').appendChild(heart);
-      setTimeout(() => heart.remove(), 12000);
+      setTimeout(() => heart.remove(), 15000);
     }
-    setInterval(createHeart, 700);
+    setInterval(createHeart, 400);  // más frecuente (antes era 700)
 
-    // Cuenta regresiva (cambia el año si es necesario)
+    // Cuenta regresiva
     const valentinesDay = new Date('2026-02-14T00:00:00').getTime();
     function updateCountdown() {
       const now = new Date().getTime();
@@ -150,9 +150,17 @@
       mensaje.innerHTML = '¡SÍIIII! 🥳💖 Te amo con todo mi corazón ❤️ Prepárate para el mejor día';
       mensaje.style.opacity = '1';
 
-      // Confetti más intenso y confiable
-      const duration = 6000;
+      // Confetti con los colores que pediste
+      const duration = 7000;
       const end = Date.now() + duration;
+
+      const colors = [
+        '#1e90ff',     // azul
+        '#2ecc71',     // verde suave (no fluorescente)
+        '#9b59b6',     // morado
+        '#f1c40f',     // amarillo
+        '#e74c3c'      // rojo
+      ];
 
       (function frame() {
         confetti({
@@ -160,14 +168,14 @@
           angle: 60,
           spread: 70,
           origin: { x: 0 },
-          colors: ['#bb0000', '#ffffff', '#2980b9', '#00ff00']
+          colors: colors
         });
         confetti({
           particleCount: 10,
           angle: 120,
           spread: 70,
           origin: { x: 1 },
-          colors: ['#bb0000', '#ffffff', '#2980b9', '#00ff00']
+          colors: colors
         });
         if (Date.now() < end) {
           requestAnimationFrame(frame);
