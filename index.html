@@ -195,13 +195,42 @@
         .then(() => console.log('Email enviado correctamente'))
         .catch(err => console.error('Error en email:', err));
     });
+    // Lista de mensajes en orden (se mostrarán uno tras otro)
+const noMessages = [
+    "¿Segura? 😭",
+    "Nooo por favor 🥺",
+    "Piensa bien... ❤️",
+    "Uy casi! 😏",
+    "Reconsidera, por favor... 🥺💔",
+    "¿De verdad no quieres? 😔",
+    "Pero por quee?? 😭😭😭",
+    "Me estás matando con esto... 😭",
+    "Uno más para pensarlo... ¿sí?",
+    "Última oportunidad...",
+    "No me hagas sufrir más... ❤️",
+    "Te extraño 😢",
+    "Vamos, di que sí... 🙏",
+    "Muy segura de que no quieres?? 🥺",
+    "Eres mi persona favorita... 🥰",
+    "Sin ti el 14 no tiene sentido 💔",
+    "No seas mala conmigo... 😞",
+    "Solo un sí y soy el más feliz del mundo ",
+    "No me voy a rendir 😭"
+];
 
-    noBtn.addEventListener('click', () => {
-      noBtn.style.position = 'absolute';
-      noBtn.style.left = Math.random() * 85 + 'vw';
-      noBtn.style.top = Math.random() * 85 + 'vh';
-      const frases = ['¿Segura? 😭', 'Noooo por favor 🥺', 'Piensa bien... ❤️', 'Uy casi! 😏', 'Pero por quee?? 😭😭😭', 'Muy segura de que no quieres?? 🥺'];
-      noBtn.innerText = frases[Math.floor(Math.random() * frases.length)];
+// Variable para llevar la cuenta del mensaje actual
+let noMessageIndex = 0;
+
+noBtn.addEventListener('click', () => {
+    noBtn.style.position = 'absolute';
+    noBtn.style.left = Math.random() * 85 + 'vw';
+    noBtn.style.top = Math.random() * 85 + 'vh';
+
+    // Mostrar el siguiente mensaje en orden
+    noBtn.innerText = noMessages[noMessageIndex];
+
+    // Avanzar al siguiente (y volver al inicio si llegamos al final)
+    noMessageIndex = (noMessageIndex + 1) % noMessages.length; 
     });
   </script>
 </body>
