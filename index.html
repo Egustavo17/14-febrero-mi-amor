@@ -114,15 +114,15 @@
 
     // Función para crear corazones
     function createHeart() {
-      const heart = document.createElement('div');
-      heart.className = 'heart';
-      heart.innerHTML = Math.random() > 0.6 ? '❤️';
-      heart.style.left = Math.random() * 100 + 'vw';
-      heart.style.animationDuration = (Math.random() * 4 + 5) + 's';
-      heart.style.fontSize = (2.5 + Math.random() * 1.5) + 'em';
-      document.getElementById('hearts').appendChild(heart);
-      setTimeout(() => heart.remove(), 12000);
-    }
+    const heart = document.createElement('div');
+    heart.className = 'heart';
+    heart.innerHTML = '❤️';  // Siempre corazón rojo
+    heart.style.left = Math.random() * 100 + 'vw';
+    heart.style.animationDuration = (Math.random() * 4 + 5) + 's';
+    heart.style.fontSize = (2.5 + Math.random() * 1.5) + 'em';
+    document.getElementById('hearts').appendChild(heart);
+    setTimeout(() => heart.remove(), 12000);
+}
 
     // Iniciar corazones normales al cargar (cada 150ms)
     heartInterval = setInterval(createHeart, 150);
